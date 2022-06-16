@@ -1,6 +1,8 @@
 const partyBtn = document.getElementById("mojigo");
 let party = false;
 
+// TODO: Try rain again. Performance is bad on my phone...
+
 partyBtn.addEventListener("click", () => {
     const container = tsParticles.domItem(0);
 
@@ -10,7 +12,7 @@ partyBtn.addEventListener("click", () => {
         container.playEmitter(0);
         container.playEmitter(1);
 
-        partyBtn.innerText = partyBtn.innerText.replace("Start", "Stop");
+        //partyBtn.innerText = partyBtn.innerText.replace("Start", "Stop");
     } else {
         console.log("Stopping")
         party = false;
@@ -18,7 +20,7 @@ partyBtn.addEventListener("click", () => {
         container.pauseEmitter(0);
         container.pauseEmitter(1);
 
-        partyBtn.innerText = partyBtn.innerText.replace("Stop", "Start");
+        //partyBtn.innerText = partyBtn.innerText.replace("Stop", "Start");
     }
 });
 
@@ -44,7 +46,7 @@ tsParticles.load("tsparticles", {
                 y: 1
             },
             rate: {
-                quantity: 10,
+                quantity: 5,
                 delay: 0.2
             },
             direction: "bottom-right"
@@ -56,7 +58,7 @@ tsParticles.load("tsparticles", {
                 y: 1
             },
             rate: {
-                quantity: 10,
+                quantity: 5,
                 delay: 0.2
             },
             direction: "bottom-left"
@@ -67,18 +69,19 @@ tsParticles.load("tsparticles", {
             value: ["#1E00FF", "#FF0061", "#E1FF00", "#00FF9E"]
         },
         move: {
-            decay: 0.0,
+            decay: 0.01,
             direction: "bottom",
             enable: true,
             gravity: {
                 enable: true,
-                acceleration: 9.81 / 2
+                acceleration: 9.81 * 4
             },
             outModes: {
+                bottom: "out",
                 default: "destroy"
             },
             size: true,
-            speed: { min: 10, max: 50 }
+            speed: { min: 10, max: 15 }
         },
         number: {
             value: 0
@@ -110,7 +113,7 @@ tsParticles.load("tsparticles", {
         //     }
         //   },
         size: {
-            value: 24
+            value: 32
         },
         //   roll: {
         //     darken: {
@@ -140,7 +143,7 @@ tsParticles.load("tsparticles", {
                     {
                         fill: true,
                         font: "Verdana",
-                        value: ["💩", "🤡", "🍀", "🍙", "🦄", "⭐️"],
+                        value: emojis,
                         style: "",
                         weight: 400
                     }
