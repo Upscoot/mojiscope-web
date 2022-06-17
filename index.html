@@ -5,21 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-        crossorigin="anonymous"></script>
+            integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+            crossorigin="anonymous"></script>
     <style>
         html,
         body {
             height: 100%;
             margin: 0;
-        }
-
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         button {
@@ -29,12 +23,53 @@
 </head>
 
 <body>
-    <div id="tsparticles"></div>
-    <button type="button" class="btn btn-outline-info" id="mojigo">Get my Mojiscope 🍟</button>
-    <script src="js/emojis.js?v=1"></script>
-    <script src="js/tsparticles.engine.min.js"></script>
-    <script src="js/tsparticles.bundle.min.js"></script>
-    <script src="js/moji.js?v=1"></script>
+<div id="tsparticles"></div>
+<div class="container d-flex h-100">
+    <div id="results" class="d-flex align-items-center row offset-1 col-10 text-center d-none">
+        <div class="col rounded-pill bg-dark text-white p-3">
+            <div class="row d-block">
+                <span class="display-1" id="moji_one"></span>
+                <span class="display-1" id="moji_two"></span>
+                <span class="display-1" id="moji_three"></span>
+            </div>
+            <div class="row">
+                <button class="d-flex mt-4 mx-auto btn btn-outline-success w-50 justify-content-center align-items-center" type="button" id="copyButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share" viewBox="0 0 16 16">
+  <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
+</svg>&nbsp;&nbsp;&nbsp;Share
+                </button>
+                <textarea id="share_field" class="d-none"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="fixed-bottom d-flex justify-content-center">
+        <button type="button" data-bs-toggle="button" class="btn btn-lg btn-outline-info w-100 m-4" id="mojigo">Get my
+            Mojiscope❗
+        </button>
+    </div>
+    <!-- <div class="row d-flex flex-column align-items-center mb-3">
+        <div class="p-2">Flex item</div>
+        <div class="p-2">Flex item</div>
+
+    </div> -->
+
+    <div class="toast fixed-bottom justify-content-center mx-auto text-bg-dark border-0 mb-4" role="alert"
+         aria-live="assertive" id="copyToast"
+         aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                Copied to clipboard
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+<script src="js/emojis.js?v=4"></script>
+<!-- <script src="js/tsparticles.engine.min.js"></script>
+<script src="js/tsparticles.bundle.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.0.6/tsparticles.bundle.min.js"></script>
+<script src="js/moji.js?v=13"></script>
 </body>
 
 </html>
