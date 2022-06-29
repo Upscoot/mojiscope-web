@@ -5,9 +5,7 @@ const copyButton = document.getElementById("copyButton");
 const copyToast = new bootstrap.Toast(toastElement);
 let party = false;
 
-copyButton.addEventListener('click', () => {
-    copy();
-})
+copyButton.addEventListener('click', copy)
 
 function getRandom(arr, n) {
     var result = new Array(n),
@@ -28,10 +26,12 @@ const mojiList = getRandom(emojis, count);
 
 // TODO: Try rain again. Performance is bad on my phone...
 
-function copy() {
+async function copy() {
     shareField.select()
-    document.execCommand("copy");
-    copyToast.show()
+    shareField.setSelectionRange(0, 99999);
+    //document.execCommand("copy");
+    await navigator.clipboard.writeText(shareField.value)
+    await copyToast.show()
 }
 
 partyBtn.addEventListener("click", () => {
@@ -83,7 +83,7 @@ partyBtn.addEventListener("click", () => {
 tsParticles.load("tsparticles", {
     background: {
         color: {
-            value: "#000000"
+            value: "#2a2a2a"
         }
     },
     fullScreen: {
@@ -98,7 +98,7 @@ tsParticles.load("tsparticles", {
             autoPlay: false,
             position: {
                 x: 50,
-                y: 95
+                y: 50
             },
             rate: {
                 quantity: 5,
@@ -125,7 +125,7 @@ tsParticles.load("tsparticles", {
         // },
         move: {
             decay: 0.0,
-            direction: "top",
+            //direction: "top",
             enable: true,
             gravity: {
                 enable: false,
