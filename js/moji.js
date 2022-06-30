@@ -50,12 +50,24 @@ partyBtn.addEventListener("click", () => {
             container.pauseEmitter(0);
             container.pauseEmitter(1);
 
-            const emoji1 = mojiList[1];
-            const emoji2 = mojiList[2];
-            const emoji3 = mojiList[3];
-            document.getElementById("moji_one").innerHTML = mojiList[1];
-            document.getElementById("moji_two").innerHTML = mojiList[2];
-            document.getElementById("moji_three").innerHTML = mojiList[3];
+            const key = new Date().toLocaleDateString();
+
+            const todaysData = localStorage.getItem(key)
+            let emoji1, emoji2, emoji3;
+            if (todaysData != null) {
+                const todaysEmojis = JSON.parse(todaysData)
+                emoji1 = todaysEmojis[0];
+                emoji2 = todaysEmojis[1];
+                emoji3 = todaysEmojis[2];
+            } else {
+                emoji1 = mojiList[1];
+                emoji2 = mojiList[2];
+                emoji3 = mojiList[3];
+                localStorage.setItem(key, JSON.stringify([emoji1, emoji2, emoji3]))
+            }
+            document.getElementById("moji_one").innerHTML = emoji1;
+            document.getElementById("moji_two").innerHTML = emoji2;
+            document.getElementById("moji_three").innerHTML = emoji3;
             document.getElementById("results").classList.toggle("d-none");
 
 
