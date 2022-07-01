@@ -2,6 +2,9 @@
 <html lang="en">
 
 <head>
+    <!-- Happy Birthday Amy! -->
+
+    <!-- To anyone else: I know this code is jank, bear with me 😅 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="/manifest.webmanifest">
@@ -13,8 +16,14 @@
             integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
             crossorigin="anonymous"></script>
     <style>
+        @font-face {
+            font-family: "Arima-SemiBold";
+            src: url("Arima-SemiBold.ttf");
+        }
+
         html,
         body {
+            font-family: Arima-SemiBold,serif;
             height: 100%;
             margin: 0;
         }
@@ -22,21 +31,33 @@
         button {
             vertical-align: bottom;
         }
+
+        #title, .moji-text {
+            font-family: Arima-SemiBold,serif;
+        }
     </style>
 </head>
 
 <body>
 <div id="tsparticles"></div>
 <div class="container d-flex h-100">
+    <div id="title" class="d-flex fixed-top justify-content-center align-items-center mx-auto text-light mt-5 flex-column">
+        <h1 class="display-1" style="color:#d440ff">Mojiscope</h1>
+        <h4 class="d-flex">Your day in emojis</h4>
+    </div>
+
     <div id="results" class="d-flex align-items-center row offset-1 col-10 text-center d-none">
         <div class="col rounded-pill bg-dark text-white p-3">
+            <div class="row moji-text mt-4 mb-4">
+                <h2>Your Mojiscope for today</h2>
+            </div>
             <div class="row d-block">
                 <span class="display-1" id="moji_one"></span>
                 <span class="display-1" id="moji_two"></span>
                 <span class="display-1" id="moji_three"></span>
             </div>
             <div class="row">
-                <button class="d-flex mt-4 mx-auto btn btn-outline-success w-50 justify-content-center align-items-center" type="button" id="copyButton">
+                <button class="d-flex mt-4 mx-auto btn btn-outline-success w-50 justify-content-center align-items-center fs-1" type="button" id="copyButton">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share" viewBox="0 0 16 16">
   <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
 </svg>&nbsp;&nbsp;&nbsp;Share
@@ -45,8 +66,9 @@
             </div>
         </div>
     </div>
+
     <div class="align-items-center d-flex justify-content-center mb-5 w-75 mx-auto">
-        <button type="button" data-bs-toggle="button" class="btn btn-lg btn-outline-info w-100" id="mojigo">Get my
+        <button type="button" data-bs-toggle="button" class="btn btn-lg btn-outline-info w-100 fs-1" id="mojigo">Get my
             Mojiscope ❗
         </button>
     </div>
@@ -72,7 +94,7 @@
 <!-- <script src="js/tsparticles.engine.min.js"></script>
 <script src="js/tsparticles.bundle.min.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.0.6/tsparticles.bundle.min.js"></script>
-<script src="js/moji.js?v=15"></script>
+<script src="js/moji.js?v=17" ></script>
 <script>
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register("/worker.js");

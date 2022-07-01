@@ -24,8 +24,6 @@ function getRandom(arr, n) {
 const count = 50;
 const mojiList = getRandom(emojis, count);
 
-// TODO: Try rain again. Performance is bad on my phone...
-
 async function copy() {
     shareField.select()
     shareField.setSelectionRange(0, 99999);
@@ -38,7 +36,6 @@ partyBtn.addEventListener("click", () => {
     const container = tsParticles.domItem(0);
 
     if (!party) {
-        console.log("Starting");
         party = true;
         partyBtn.classList.toggle("d-none");
         container.playEmitter(0);
@@ -46,7 +43,6 @@ partyBtn.addEventListener("click", () => {
 
 
         setTimeout(function () {
-            console.log("Stopping")
             container.pauseEmitter(0);
             container.pauseEmitter(1);
 
@@ -65,6 +61,9 @@ partyBtn.addEventListener("click", () => {
                 emoji3 = mojiList[3];
                 localStorage.setItem(key, JSON.stringify([emoji1, emoji2, emoji3]))
             }
+
+            tsParticles.load("tsparticles", getCompleteConfig([emoji1, emoji2, emoji3]));
+
             document.getElementById("moji_one").innerHTML = emoji1;
             document.getElementById("moji_two").innerHTML = emoji2;
             document.getElementById("moji_three").innerHTML = emoji3;
@@ -91,8 +90,78 @@ partyBtn.addEventListener("click", () => {
     }*/
 });
 
+function getCompleteConfig(mojis) {
+    return {
+        background: {
+            color: {
+                value: "#2a2a2a"
+            }
+        },
+        fullScreen: {
+            enable: true,
+            zIndex: -1
+        },
+        interactivity: {
+            detectsOn: "window"
+        },
+        emitters: [
+            {
+                autoPlay: true,
+                position: {
+                    x: 50,
+                    y: 50
+                },
+                rate: {
+                    quantity: 2,
+                    delay: 0.4
+                },
+            },
+        ],
+        particles: {
+            move: {
+                decay: 0.0,
+                //direction: "top",
+                enable: true,
+                gravity: {
+                    enable: false,
+                    acceleration: 9.81 * 4
+                },
+                outModes: {
+                    default: "destroy"
+                },
+                size: true,
+                speed: {min: 5, max: 10}
+            },
+            number: {
+                value: 0
+            },
+            opacity: {
+                value: .3
+            },
+            size: {
+                value: 48
+            },
+            shape: {
+                type: [
+                    "character"
+                ],
+                options: {
+                    character: [
+                        {
+                            fill: true,
+                            font: "Verdana",
+                            value: mojis,
+                            style: "",
+                            weight: 400
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}
 
-tsParticles.load("tsparticles", {
+const randomConfig = {
     background: {
         color: {
             value: "#2a2a2a"
@@ -116,25 +185,9 @@ tsParticles.load("tsparticles", {
                 quantity: 5,
                 delay: 0.2
             },
-            //direction: ["bottom", "]
         },
-        // {
-        //     autoPlay: false,
-        //     position: {
-        //         x: 99,
-        //         y: 1
-        //     },
-        //     rate: {
-        //         quantity: 5,
-        //         delay: 0.2
-        //     },
-        //     direction: "bottom-left"
-        // }
     ],
     particles: {
-        // color: {
-        //     value: ["#1E00FF", "#FF0061", "#E1FF00", "#00FF9E"]
-        // },
         move: {
             decay: 0.0,
             //direction: "top",
@@ -155,51 +208,9 @@ tsParticles.load("tsparticles", {
         opacity: {
             value: 1
         },
-        //   rotate: {
-        //     value: {
-        //       min: 0,
-        //       max: 360
-        //     },
-        //     direction: "random",
-        //     animation: {
-        //       enable: true,
-        //       speed: 30
-        //     }
-        //   },
-        //   tilt: {
-        //     direction: "random",
-        //     enable: true,
-        //     value: {
-        //       min: 0,
-        //       max: 360
-        //     },
-        //     animation: {
-        //       enable: true,
-        //       speed: 30
-        //     }
-        //   },
         size: {
             value: 24
         },
-        //   roll: {
-        //     darken: {
-        //       enable: true,
-        //       value: 25
-        //     },
-        //     enable: true,
-        //     speed: {
-        //       min: 5,
-        //       max: 15
-        //     }
-        //   },
-        //   wobble: {
-        //     distance: 30,
-        //     enable: true,
-        //     speed: {
-        //       min: -7,
-        //       max: 7
-        //     }
-        //   },
         shape: {
             type: [
                 "character"
@@ -217,4 +228,7 @@ tsParticles.load("tsparticles", {
             }
         }
     }
-});
+}
+
+
+tsParticles.load("tsparticles", randomConfig);
