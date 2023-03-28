@@ -31,8 +31,18 @@ async function copy() {
     await navigator.clipboard.writeText(shareField.value)
     await copyToast.show()
 }
+const url = "https://api.mojiscope.app/";
 
-partyBtn.addEventListener("click", () => {
+async function getScope() {
+    try {
+        const response = await fetch(url);
+        return await response.json();
+      } catch (error) {
+        console.error(error);
+      }
+}
+
+partyBtn.addEventListener("click", async () => {
     const container = tsParticles.domItem(0);
 
     if (!party) {
@@ -41,25 +51,27 @@ partyBtn.addEventListener("click", () => {
         container.playEmitter(0);
         container.playEmitter(1);
 
-
-        setTimeout(function () {
-            container.pauseEmitter(0);
-            container.pauseEmitter(1);
-
-            const key = new Date().toLocaleDateString();
-
-            const todaysData = localStorage.getItem(key)
-            let emoji1, emoji2, emoji3;
+        const key = new Date().toLocaleDateString();
+        const todaysData = localStorage.getItem(key)
+            let emoji1, emoji2, emoji3, scope_text;
             if (todaysData != null) {
+                await new Promise(r => setTimeout(r, 3000));
                 const todaysEmojis = JSON.parse(todaysData)
                 emoji1 = todaysEmojis[0];
                 emoji2 = todaysEmojis[1];
                 emoji3 = todaysEmojis[2];
+                scope_text= todaysEmojis[3];
             } else {
-                emoji1 = mojiList[1];
-                emoji2 = mojiList[2];
-                emoji3 = mojiList[3];
-                localStorage.setItem(key, JSON.stringify([emoji1, emoji2, emoji3]))
+                newScope = await getScope()
+                console.log(newScope)
+                emoji1 = newScope.mojis[0]
+                emoji2 = newScope.mojis[1]
+                emoji3 = newScope.mojis[2]
+                scope_text = newScope.scope
+
+                container.pauseEmitter(0);
+                container.pauseEmitter(1);
+                localStorage.setItem(key, JSON.stringify([emoji1, emoji2, emoji3, scope_text]))
             }
 
             tsParticles.load("tsparticles", getCompleteConfig([emoji1, emoji2, emoji3]));
@@ -67,27 +79,12 @@ partyBtn.addEventListener("click", () => {
             document.getElementById("moji_one").innerHTML = emoji1;
             document.getElementById("moji_two").innerHTML = emoji2;
             document.getElementById("moji_three").innerHTML = emoji3;
+            document.getElementById("horo_desc").innerHTML = scope_text;
             document.getElementById("results").classList.toggle("d-none");
 
 
-            shareField.innerHTML = "My Mojiscope for the day:\n" + emoji1 + " " + emoji2 + " " + emoji3 + "\nhttps://mojiscope.app"
-        }, 3000)
-
-        //partyBtn.innerText = partyBtn.innerText.replace("Start", "Stop");
-    }/* else {
-        console.log("Stopping")
-        party = false;
-
-        container.pauseEmitter(0);
-        container.pauseEmitter(1);
-
-        document.getElementById("moji_one").innerHTML = mojiList[1];
-        document.getElementById("moji_two").innerHTML = mojiList[2];
-        document.getElementById("moji_three").innerHTML = mojiList[3];
-        document.getElementById("results").classList.toggle("d-none");
-
-        //partyBtn.innerText = partyBtn.innerText.replace("Stop", "Start");
-    }*/
+            shareField.innerHTML = "My Mojiscope for the day:\n" + emoji1 + " " + emoji2 + " " + emoji3 + "\n" + scope_text + "\nhttps://mojiscope.app"
+        }
 });
 
 function getCompleteConfig(mojis) {
