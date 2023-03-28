@@ -39,6 +39,10 @@ async function getScope() {
         return await response.json();
       } catch (error) {
         console.error(error);
+        await new Promise(r => setTimeout(r, 3000));
+        return {mojis: [mojiList[1],
+                mojiList[2],
+                mojiList[3]], scope: ""}
       }
 }
 
