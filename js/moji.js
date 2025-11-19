@@ -35,7 +35,15 @@ const url = "https://api.mojiscope.app/";
 
 async function getScope() {
     try {
-        const response = await fetch(url);
+        // Updated to use POST
+        const response = await fetch(url, {
+            method: "POST",
+            // If your API expects JSON data, uncomment the lines below:
+            // headers: {
+            //     "Content-Type": "application/json"
+            // },
+            // body: JSON.stringify({ key: "value" }) 
+        });
         return await response.json();
       } catch (error) {
         console.error(error);
